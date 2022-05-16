@@ -1,6 +1,9 @@
 import 'package:bliss_music_shopping_cart/UI/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/category_tile.dart';
+import '../widgets/instrument_tile.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -9,6 +12,49 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final List<Widget> _categoryList = [
+     const CategoryTile(
+        categoryName: "Guitar",
+        color: Colors.green,
+        icon: Icon(
+          Icons.music_note,
+          color: Colors.black,
+          size: 25,
+        )),
+    const SizedBox(width: 5),
+    const  CategoryTile(
+        categoryName: "Piano",
+        color: Colors.yellow,
+        icon: Icon(
+          Icons.music_note,
+          color: Colors.black,
+          size: 25,
+        )),
+    const SizedBox(width: 5),
+    const  CategoryTile(
+        categoryName: "Drums",
+        color: Colors.purple,
+        icon: Icon(
+          Icons.music_note,
+          color: Colors.black,
+          size: 25,
+        )),
+  ];
+
+  final List<Widget> _instrumentList = [
+    const InstrumentTile(),
+    const SizedBox(width: 5),
+    const InstrumentTile(),
+    const SizedBox(width: 5),
+    const InstrumentTile(),
+    const SizedBox(width: 5),
+    const InstrumentTile(),
+    const SizedBox(width: 5),
+  ];
+
+
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -134,6 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.07),
             const Text(
               "By Category",
               style: TextStyle(
@@ -141,6 +188,42 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontWeight: FontWeight.w500,
                   fontStyle: FontStyle.normal,
                   fontSize: 25.0),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            SizedBox(
+              height: 50,
+              width: MediaQuery.of(context).size.width / 1.2,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _categoryList.length,
+                itemBuilder: (context, index) {
+                  return
+                    _categoryList[index];
+
+                },
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            const Text(
+              "Most Popular",
+              style: TextStyle(
+                  color: AppColors.textColorLight,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.normal,
+                  fontSize: 25.0),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            SizedBox(
+              height: 100,
+              width: MediaQuery.of(context).size.width / 1.2,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _instrumentList.length,
+                itemBuilder: (context, index) {
+                  return
+                    _instrumentList[index];
+                },
+              ),
             ),
           ],
         ),
