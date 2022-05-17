@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:bliss_music_shopping_cart/Provider/main_provider.dart';
 import 'package:bliss_music_shopping_cart/UI/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import '../../models/instrument.dart';
 import '../widgets/category_tile.dart';
@@ -46,27 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
         )),
   ];
 
-  // final List<Widget> _instrumentList = [
-  //   const InstrumentTile(),
-  //   const SizedBox(width: 5),
-  //   const InstrumentTile(),
-  //   const SizedBox(width: 5),
-  //   const InstrumentTile(),
-  //   const SizedBox(width: 5),
-  //   const InstrumentTile(),
-  //   const SizedBox(width: 5),
-  // ];
 
-  // _getData() async {
-  //   var provider = Provider.of<MainProvider>(context, listen: false);
-  //
-  //   var postsResponse = await APIHelper.getData();
-  //
-  // }
   List<Instrument> instrumentTest = [];
 
   fetchData() async {
-
+    var provider = Provider.of<MainProvider>(context, listen: false);
+    List<Instrument> instrumentList = [];
     final response = await http.get(Uri.parse(
         'https://run.mocky.io/v3/919a0d45-c054-4452-8175-65538e554272'));
 
@@ -75,10 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
       var data = jsonData["result"];
       for (var breakfastPref in data) {
         print(breakfastPref);
-        instrumentTest.add(Instrument.fromJson(breakfastPref));
+        instrumentList.add(Instrument.fromJson(breakfastPref));
       }
-
-
+      provider.setInstrumentList(instrumentList);
     } else {}
   }
 
@@ -246,18 +232,49 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 25.0),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              SizedBox(
-                height: 150,
-                width: MediaQuery.of(context).size.width / 1.2,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: instrumentTest.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                        onTap: productOnTap, child: InstrumentTile(productCode: instrumentTest[index].model));
-                  },
-                ),
-              ),
+              // Container(
+              //   color: Colors.yellow,
+              //   child: SizedBox(
+              //     height: 150,
+              //     width: MediaQuery.of(context).size.width / 1.2,
+              //     child: ListView.builder(
+              //       scrollDirection: Axis.horizontal,
+              //       itemCount: instrumentTest.length,
+              //       itemBuilder: (context, index) {
+              //         return GestureDetector(
+              //             onTap: productOnTap,
+              //             child: InstrumentTile(
+              //                 productCode: instrumentTest[index].model));
+              //       },
+              //     ),
+              //   ),
+              // ),
+
+              Consumer<MainProvider>(builder: (_, provider, __) =>
+                Container(
+                  color: Colors.yellow,
+                  child: SizedBox(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: provider.getInstrumentList.length,
+                      itemBuilder: (context, index) {
+                        Instrument instrument = provider.getInstrumentByIndex(index);
+                        return GestureDetector(
+                            onTap: productOnTap,
+                            child: InstrumentTile(
+                                productCode: instrument.name));
+                      },
+                    ),
+                  ),
+
+
+              )),
+
+
+
+
             ],
           ),
         ),

@@ -6,7 +6,7 @@ class MainProvider extends ChangeNotifier {
 
 
   List<Instrument> get  getInstrumentList => _instrumentList;
-
+  Instrument getInstrumentByIndex(int index) => _instrumentList[index];
   setInstrumentList(List<Instrument> list) {
     _instrumentList = list;
     notifyListeners();
