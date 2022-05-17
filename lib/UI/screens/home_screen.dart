@@ -48,7 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
         )),
   ];
 
-
   List<Instrument> instrumentTest = [];
 
   fetchData() async {
@@ -250,31 +249,36 @@ class _HomeScreenState extends State<HomeScreen> {
               //   ),
               // ),
 
-              Consumer<MainProvider>(builder: (_, provider, __) =>
-                Container(
-                  color: Colors.yellow,
-                  child: SizedBox(
-                    height: 150,
-                    width: MediaQuery.of(context).size.width / 1.2,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: provider.getInstrumentList.length,
-                      itemBuilder: (context, index) {
-                        Instrument instrument = provider.getInstrumentByIndex(index);
-                        return GestureDetector(
-                            onTap: productOnTap,
-                            child: InstrumentTile(
-                                productCode: instrument.name));
-                      },
-                    ),
-                  ),
-
-
-              )),
-
-
-
-
+              Consumer<MainProvider>(
+                  builder: (_, provider, __) => Container(
+                        child: SizedBox(
+                          height: 150,
+                          width: MediaQuery.of(context).size.width / 1.2,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: provider.getInstrumentList.length,
+                            itemBuilder: (context, index) {
+                              Instrument instrument =
+                                  provider.getInstrumentByIndex(index);
+                              return GestureDetector(
+                                  onTap: productOnTap,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        right:
+                                            MediaQuery.of(context).size.width *
+                                                0.02,
+                                        left:
+                                            MediaQuery.of(context).size.width *
+                                                0.02),
+                                    child: InstrumentTile(
+                                      productCode: instrument.model,
+                                      imageUrl: instrument.image,
+                                    ),
+                                  ));
+                            },
+                          ),
+                        ),
+                      )),
             ],
           ),
         ),

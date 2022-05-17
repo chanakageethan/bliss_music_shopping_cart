@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
+
 class InstrumentTile extends StatelessWidget {
   final String productCode;
+  final String imageUrl;
 
-
-  const InstrumentTile({Key? key,required this.productCode}) : super(key: key);
+  const InstrumentTile(
+      {Key? key, required this.productCode, required this.imageUrl})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class InstrumentTile extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 5,
       width: MediaQuery.of(context).size.width / 3.5,
       decoration: BoxDecoration(
-        color: Colors.lightGreen,
+        // color: Colors.lightGreen,
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
@@ -25,22 +28,42 @@ class InstrumentTile extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
-        children:   [
-          Text(
-            productCode,
-            style: const TextStyle(
-                color: AppColors.textColorLight,
-                fontWeight: FontWeight.w500,
-                fontStyle: FontStyle.normal,
-                fontSize: 25.0),
-          ),
-          const Icon(
-            Icons.heart_broken_outlined,
-            color: Colors.black,
-            size: 25,
-          )
-        ],
+      child: Padding(
+        padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02,
+      left: MediaQuery.of(context).size.width * 0.02,
+            right: MediaQuery.of(context).size.width * 0.02
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  productCode,
+                  style: const TextStyle(
+                      color: AppColors.textColorLight,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 13.0),
+                ),
+               const  Spacer(),
+                const Icon(
+                  Icons.favorite,
+                  color: Colors.white,
+                  size: 24.0,
+                  semanticLabel: 'Text to announce in accessibility modes',
+                ),
+              ],
+            ),
+            SizedBox(
+              height:  MediaQuery.of(context).size.height * 0.02,
+            ),
+            SizedBox(
+              height:  MediaQuery.of(context).size.height / 10,
+              width:  MediaQuery.of(context).size.width / 7,
+              child: Image.network(imageUrl),
+            ),
+          ],
+        ),
       ),
     );
   }
