@@ -50,7 +50,6 @@ class InstrumentTile extends StatelessWidget {
                   Icons.favorite,
                   color: Colors.white,
                   size: 24.0,
-                  semanticLabel: 'Text to announce in accessibility modes',
                 ),
               ],
             ),
