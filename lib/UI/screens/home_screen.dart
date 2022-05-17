@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:bliss_music_shopping_cart/UI/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
+import '../../models/instrument.dart';
 import '../widgets/category_tile.dart';
 import '../widgets/instrument_tile.dart';
 import 'details_screen.dart';
@@ -13,9 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final List<Widget> _categoryList = [
-     const CategoryTile(
+    const CategoryTile(
         categoryName: "Guitar",
         color: Colors.green,
         icon: Icon(
@@ -24,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
           size: 25,
         )),
     const SizedBox(width: 5),
-    const  CategoryTile(
+    const CategoryTile(
         categoryName: "Piano",
         color: Colors.yellow,
         icon: Icon(
@@ -33,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           size: 25,
         )),
     const SizedBox(width: 5),
-    const  CategoryTile(
+    const CategoryTile(
         categoryName: "Drums",
         color: Colors.purple,
         icon: Icon(
@@ -43,18 +46,48 @@ class _HomeScreenState extends State<HomeScreen> {
         )),
   ];
 
-  final List<Widget> _instrumentList = [
-    const InstrumentTile(),
-    const SizedBox(width: 5),
-    const InstrumentTile(),
-    const SizedBox(width: 5),
-    const InstrumentTile(),
-    const SizedBox(width: 5),
-    const InstrumentTile(),
-    const SizedBox(width: 5),
-  ];
+  // final List<Widget> _instrumentList = [
+  //   const InstrumentTile(),
+  //   const SizedBox(width: 5),
+  //   const InstrumentTile(),
+  //   const SizedBox(width: 5),
+  //   const InstrumentTile(),
+  //   const SizedBox(width: 5),
+  //   const InstrumentTile(),
+  //   const SizedBox(width: 5),
+  // ];
+
+  // _getData() async {
+  //   var provider = Provider.of<MainProvider>(context, listen: false);
+  //
+  //   var postsResponse = await APIHelper.getData();
+  //
+  // }
+  List<Instrument> instrumentTest = [];
+
+  fetchData() async {
+
+    final response = await http.get(Uri.parse(
+        'https://run.mocky.io/v3/919a0d45-c054-4452-8175-65538e554272'));
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+      var data = jsonData["result"];
+      for (var breakfastPref in data) {
+        print(breakfastPref);
+        instrumentTest.add(Instrument.fromJson(breakfastPref));
+      }
 
 
+    } else {}
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget body() => SingleChildScrollView(
-    child: Padding(
+        child: Padding(
           padding: EdgeInsets.only(
               top: MediaQuery.of(context).size.height * 0.05,
               left: MediaQuery.of(context).size.width * 0.05,
@@ -199,9 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   itemCount: _categoryList.length,
                   itemBuilder: (context, index) {
-                    return
-                      _categoryList[index];
-
+                    return _categoryList[index];
                   },
                 ),
               ),
@@ -220,22 +251,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: _instrumentList.length,
+                  itemCount: instrumentTest.length,
                   itemBuilder: (context, index) {
-                    return
-                      GestureDetector(
-                          onTap: productOnTap,
-                          child: _instrumentList[index]);
+                    return GestureDetector(
+                        onTap: productOnTap, child: InstrumentTile(productCode: instrumentTest[index].model));
                   },
                 ),
               ),
             ],
           ),
         ),
-  );
+      );
 
-
-  void productOnTap(){
+  void productOnTap() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const DetailsScreen()),

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
 class InstrumentTile extends StatelessWidget {
+  final String productCode;
 
 
-
-  const InstrumentTile({Key? key}) : super(key: key);
+  const InstrumentTile({Key? key,required this.productCode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +26,16 @@ class InstrumentTile extends StatelessWidget {
         ],
       ),
       child: Row(
-        children:  const [
+        children:   [
           Text(
-            "OC112",
-            style: TextStyle(
+            productCode,
+            style: const TextStyle(
                 color: AppColors.textColorLight,
                 fontWeight: FontWeight.w500,
                 fontStyle: FontStyle.normal,
                 fontSize: 25.0),
           ),
-          Icon(
+          const Icon(
             Icons.heart_broken_outlined,
             color: Colors.black,
             size: 25,
