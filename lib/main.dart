@@ -18,9 +18,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: "Roboto",
       ),
-      // routes: <String, WidgetBuilder>{
-      //   "/HomeScreen": (BuildContext c) => const HomeScreen(),
-      // },
+      routes: <String, WidgetBuilder>{
+        // "/HomeScreen": (BuildContext c) => const HomeScreen(),
+        // "/HomeScreen": (BuildContext c) => const HomeScreen(),
+      },
       home:  const HomeScreen(),
     );
   }
