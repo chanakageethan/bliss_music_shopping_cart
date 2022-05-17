@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/cart_screen.dart';
+
 
 
 
@@ -7,6 +9,7 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget   implements  PreferredSizeWidget {
   final bool  isBackButtonNeeded;
   final Color color;
+
   const CustomAppBar({Key? key,required this.isBackButtonNeeded,required this.color}) : super(key: key);
   @override
   Size get preferredSize => const Size.fromHeight(43);
@@ -33,33 +36,36 @@ class CustomAppBar extends StatelessWidget   implements  PreferredSizeWidget {
               size: 30.0,
             ),
             SizedBox(width: MediaQuery.of(context).size.width *0.02),
-            Stack(
-              children:  [
-                  const  Icon(
-                  Icons.shopping_cart,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                Container(
-                  height: 15,
-                  width: 15,
-                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
-                  decoration: const BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle
+            GestureDetector(
+              onTap: ()=>showCartScreen(context),
+              child: Stack(
+                children:  [
+                    const  Icon(
+                    Icons.shopping_cart,
+                    color: Colors.white,
+                    size: 30.0,
                   ),
-                  child: const Center(
-                    child: Text(
-                      "4",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 10.0),
+                  Container(
+                    height: 15,
+                    width: 15,
+                    margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
+                    decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "4",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 10.0),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -81,6 +87,14 @@ class CustomAppBar extends StatelessWidget   implements  PreferredSizeWidget {
         )
             :
         Container()
+    );
+  }
+
+
+  showCartScreen(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  CartScreen()),
     );
   }
 
