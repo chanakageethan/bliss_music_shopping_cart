@@ -1,10 +1,14 @@
 import 'package:bliss_music_shopping_cart/UI/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/instrument.dart';
 import '../widgets/custom_app_bar.dart';
+import '../widgets/primary_button.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({Key? key}) : super(key: key);
+  final Instrument instrument;
+
+  const DetailsScreen({Key? key, required this.instrument}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +36,7 @@ class DetailsScreen extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 5,
                     width: MediaQuery.of(context).size.width / 2,
-                    child: Image.network(
-                        'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif'),
+                    child: Image.network(instrument.image),
                   ),
                 ],
               ),
@@ -44,6 +47,7 @@ class DetailsScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.6,
+                width: double.infinity,
                 decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.white,
@@ -54,9 +58,145 @@ class DetailsScreen extends StatelessWidget {
                     color: Colors.white
                     // color: Colors.white,
                     ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.03,
+                          left: MediaQuery.of(context).size.width * 0.05),
+                      child: const Text(
+                        "Most Popular",
+                        style: TextStyle(
+                            color: AppColors.textColorLight,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 30.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.03,
+                          left: MediaQuery.of(context).size.width * 0.05),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Brand",
+                                style: TextStyle(
+                                    color: AppColors.textColorLight,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 20.0),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              const Text(
+                                "Price",
+                                style: TextStyle(
+                                    color: AppColors.textColorLight,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 20.0),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              const Text(
+                                "Color",
+                                style: TextStyle(
+                                    color: AppColors.textColorLight,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 20.0),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              const Text(
+                                "Weight",
+                                style: TextStyle(
+                                    color: AppColors.textColorLight,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 20.0),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 2.5),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                instrument.brand,
+                                style: const TextStyle(
+                                    color: AppColors.textColorLight,
+                                    fontWeight: FontWeight.w100,
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 20.0),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(
+                                instrument.price.toString(),
+                                style: const TextStyle(
+                                    color: AppColors.textColorLight,
+                                    fontWeight: FontWeight.w100,
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 20.0),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(
+                                instrument.colour,
+                                style: const TextStyle(
+                                    color: AppColors.textColorLight,
+                                    fontWeight: FontWeight.w100,
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 20.0),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(
+                                instrument.weight,
+                                style: const TextStyle(
+                                    color: AppColors.textColorLight,
+                                    fontWeight: FontWeight.w100,
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 20.0),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    const Spacer(),
+
+                 Padding(
+                   padding:  EdgeInsets.only(
+                     left: MediaQuery.of(context).size.width / 10,
+                     right: MediaQuery.of(context).size.width / 10,
+                     bottom:   MediaQuery.of(context).size.height *0.02,
+                   ),
+                   child: PrimaryButton(text: "Add to cart", callback: adToCart),
+                 ),
+                  ],
+                ),
               ),
             )
           ],
         ),
       );
+
+  adToCart() {
+    print("add to cart");
+  }
 }
