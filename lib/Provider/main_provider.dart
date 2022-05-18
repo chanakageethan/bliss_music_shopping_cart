@@ -29,6 +29,26 @@ class MainProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  makeFavoriteItem(String  id){
+    for (var element in _instrumentList) {
+      if(  element.id == id){
+        element.isFavorite = !element.isFavorite;
+        notifyListeners();
+      }
+    }
+    // notifyListeners();
+  }
+
+  bool getIsFavorite(String  id){
+    bool isFavorite = false;
+    for (var element in _instrumentList) {
+      if(  element.id == id){
+        isFavorite =   element.isFavorite;
+      }
+    }
+    return isFavorite;
+  }
+
 
 
 

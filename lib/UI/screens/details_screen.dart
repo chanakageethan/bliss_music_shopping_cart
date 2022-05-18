@@ -17,9 +17,10 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(child: body(context)),
-      appBar: const CustomAppBar(
+      appBar:  CustomAppBar(
         isBackButtonNeeded: true,
         color: AppColors.backgroundColor,
+        itemId: instrument.id,
       ),
     );
   }

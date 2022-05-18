@@ -8,6 +8,7 @@ class Instrument {
   String colour;
   String weight;
   String image;
+  late bool isFavorite;
 
   Instrument(
       {required this.id,
@@ -18,7 +19,9 @@ class Instrument {
       required this.price,
       required this.colour,
       required this.weight,
-      required this.image});
+      required this.image,
+      this.isFavorite = false,
+      });
 
   factory Instrument.fromJson(Map<String, dynamic> json) {
     return Instrument(

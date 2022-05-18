@@ -13,6 +13,8 @@ class CartProvider extends ChangeNotifier{
   List<Instrument> get  getCartItemList => _cartItemList;
   Instrument getCartItemByIndex(int index) => _cartItemList[index];
 
+
+
   addToCart(Instrument instrument){
     _cartItemList.add(instrument);
     totalPrice = totalPrice + instrument.price;
@@ -24,6 +26,9 @@ class CartProvider extends ChangeNotifier{
      totalPrice = totalPrice - price;
      notifyListeners();
    }
+
+
+
 
 
 

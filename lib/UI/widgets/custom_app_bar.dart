@@ -1,3 +1,4 @@
+import 'package:bliss_music_shopping_cart/Provider/main_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,13 +12,15 @@ import '../screens/cart_screen.dart';
 class CustomAppBar extends StatelessWidget   implements  PreferredSizeWidget {
   final bool  isBackButtonNeeded;
   final Color color;
+  final String itemId;
 
-  const CustomAppBar({Key? key,required this.isBackButtonNeeded,required this.color}) : super(key: key);
+  const CustomAppBar({Key? key,required this.isBackButtonNeeded,required this.color,required this.itemId}) : super(key: key);
   @override
   Size get preferredSize => const Size.fromHeight(43);
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<CartProvider>(context, listen: true);
+    var mainProvider = Provider.of<MainProvider>(context, listen: true);
     return AppBar(
         leadingWidth: MediaQuery.of(context).size.width / 4,
         backgroundColor:color,
@@ -33,10 +36,17 @@ class CustomAppBar extends StatelessWidget   implements  PreferredSizeWidget {
               size: 30.0,
             ),
              SizedBox(width: MediaQuery.of(context).size.width *0.02),
-            const   Icon(
-              Icons.favorite,
-              color: Colors.white,
-              size: 30.0,
+            GestureDetector(
+              onTap: ()=>_favoriteOnTap(context),
+              child:  mainProvider.getIsFavorite(itemId)?  Icon(
+                Icons.favorite,
+                color: Colors.red,
+                size: 30.0,
+              ):Icon(
+                Icons.favorite,
+                color: Colors.white,
+                size: 30.0,
+              )
             ),
             SizedBox(width: MediaQuery.of(context).size.width *0.02),
             GestureDetector(
@@ -101,6 +111,12 @@ class CustomAppBar extends StatelessWidget   implements  PreferredSizeWidget {
       context,
       MaterialPageRoute(builder: (context) =>  CartScreen()),
     );
+  }
+
+
+  _favoriteOnTap(BuildContext context){
+    var provider = Provider.of<MainProvider>(context, listen: false);
+       provider.makeFavoriteItem(itemId);
   }
 
 }
