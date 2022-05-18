@@ -20,14 +20,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-final List<Category>  _categoryList  = [
-  Category(categoryName: "guitar", color: Colors.green),
-  Category(categoryName: "piano", color: Colors.yellow),
-  Category(categoryName: "drums", color: Colors.pink),
-
-];
-
+  final List<Category> _categoryList = [
+    Category(categoryName: "guitar", color: Colors.green),
+    Category(categoryName: "piano", color: Colors.yellow),
+    Category(categoryName: "drums", color: Colors.pink),
+  ];
 
   // final List<Widget> _categoryList = [
   //   const CategoryTile(
@@ -86,8 +83,11 @@ final List<Category>  _categoryList  = [
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return GestureDetector(
+      onTap: () {
+        var provider = Provider.of<MainProvider>(context, listen: false);
+        provider.setIsFilter(false);
+      },
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
         body: SafeArea(child: body()),
@@ -228,9 +228,11 @@ final List<Category>  _categoryList  = [
                   itemCount: _categoryList.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                        onTap: ()=>_selectCategory(_categoryList[index].categoryName),
-                        child:  Padding(
-                          padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.02),
+                        onTap: () =>
+                            _selectCategory(_categoryList[index].categoryName),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              right: MediaQuery.of(context).size.width * 0.02),
                           child: CategoryTile(
                               categoryName: _categoryList[index].categoryName,
                               color: _categoryList[index].color,
@@ -273,32 +275,33 @@ final List<Category>  _categoryList  = [
 
               Consumer<MainProvider>(
                   builder: (_, provider, __) => SizedBox(
-                    height: 150,
-                    width: MediaQuery.of(context).size.width / 1.2,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: provider.isFilter ? provider.getFilteredList.length: provider.getInstrumentList.length,
-                      itemBuilder: (context, index) {
-                        Instrument instrument =
-                        provider.isFilter ? provider.getFilteredInstrumentByIndex(index) :  provider.getInstrumentByIndex(index);
-                        return GestureDetector(
-                            onTap: ()=>productOnTap(instrument),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width *
+                        height: 150,
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: provider.isFilter
+                              ? provider.getFilteredList.length
+                              : provider.getInstrumentList.length,
+                          itemBuilder: (context, index) {
+                            Instrument instrument = provider.isFilter
+                                ? provider.getFilteredInstrumentByIndex(index)
+                                : provider.getInstrumentByIndex(index);
+                            return GestureDetector(
+                                onTap: () => productOnTap(instrument),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      right: MediaQuery.of(context).size.width *
                                           0.02,
-                                  left:
-                                      MediaQuery.of(context).size.width *
+                                      left: MediaQuery.of(context).size.width *
                                           0.02),
-                              child: InstrumentTile(
-                                productCode: instrument.model,
-                                imageUrl: instrument.image,
-                              ),
-                            ));
-                      },
-                    ),
-                  )),
+                                  child: InstrumentTile(
+                                    productCode: instrument.model,
+                                    imageUrl: instrument.image,
+                                  ),
+                                ));
+                          },
+                        ),
+                      )),
             ],
           ),
         ),
@@ -307,14 +310,15 @@ final List<Category>  _categoryList  = [
   void productOnTap(Instrument instrument) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) =>  DetailsScreen(instrument: instrument)),
+      MaterialPageRoute(
+          builder: (context) => DetailsScreen(instrument: instrument)),
     );
   }
 
-  void _selectCategory(String category){
-     print(category);
-     var provider = Provider.of<MainProvider>(context, listen: false);
-     provider.setIsFilter(true);
-provider.filterByCategory(category);
+  void _selectCategory(String category) {
+    print(category);
+    var provider = Provider.of<MainProvider>(context, listen: false);
+    provider.setIsFilter(true);
+    provider.filterByCategory(category);
   }
 }
