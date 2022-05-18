@@ -50,11 +50,16 @@ class MainProvider extends ChangeNotifier {
   }
 
 
-  filterByModel(String category){
-    print("== "+ category);
-    _filteredList = _instrumentList.where((i) => i.model == category).toList();
+  filterByModel(String model){
+    _filteredList= [];
+    _filteredList = _instrumentList.where((i) => i.model == model).toList();
     notifyListeners();
   }
+
+
+
+
+
 
 }
 
