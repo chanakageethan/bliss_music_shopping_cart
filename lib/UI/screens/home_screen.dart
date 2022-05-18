@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
+import '../../models/category.dart';
 import '../../models/instrument.dart';
 import '../widgets/category_tile.dart';
 import '../widgets/instrument_tile.dart';
@@ -19,34 +20,43 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Widget> _categoryList = [
-    const CategoryTile(
-        categoryName: "Guitar",
-        color: Colors.green,
-        icon: Icon(
-          Icons.music_note,
-          color: Colors.black,
-          size: 25,
-        )),
-    const SizedBox(width: 5),
-    const CategoryTile(
-        categoryName: "Piano",
-        color: Colors.yellow,
-        icon: Icon(
-          Icons.music_note,
-          color: Colors.black,
-          size: 25,
-        )),
-    const SizedBox(width: 5),
-    const CategoryTile(
-        categoryName: "Drums",
-        color: Colors.purple,
-        icon: Icon(
-          Icons.music_note,
-          color: Colors.black,
-          size: 25,
-        )),
-  ];
+
+final List<Category>  _categoryList  = [
+  Category(categoryName: "guitar", color: Colors.green),
+  Category(categoryName: "piano", color: Colors.yellow),
+  Category(categoryName: "drums", color: Colors.pink),
+
+];
+
+
+  // final List<Widget> _categoryList = [
+  //   const CategoryTile(
+  //       categoryName: "Guitar",
+  //       color: Colors.green,
+  //       icon: Icon(
+  //         Icons.music_note,
+  //         color: Colors.black,
+  //         size: 25,
+  //       )),
+  //   const SizedBox(width: 5),
+  //   const CategoryTile(
+  //       categoryName: "Piano",
+  //       color: Colors.yellow,
+  //       icon: Icon(
+  //         Icons.music_note,
+  //         color: Colors.black,
+  //         size: 25,
+  //       )),
+  //   const SizedBox(width: 5),
+  //   const CategoryTile(
+  //       categoryName: "Drums",
+  //       color: Colors.purple,
+  //       icon: Icon(
+  //         Icons.music_note,
+  //         color: Colors.black,
+  //         size: 25,
+  //       )),
+  // ];
 
   List<Instrument> instrumentTest = [];
 
@@ -217,7 +227,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   itemCount: _categoryList.length,
                   itemBuilder: (context, index) {
-                    return _categoryList[index];
+                    return GestureDetector(
+                        onTap: ()=>_selectCategory(_categoryList[index].categoryName),
+                        child:  Padding(
+                          padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.02),
+                          child: CategoryTile(
+                              categoryName: _categoryList[index].categoryName,
+                              color: _categoryList[index].color,
+                              icon: const Icon(
+                                Icons.music_note,
+                                color: Colors.black,
+                                size: 25,
+                              )),
+                        ));
                   },
                 ),
               ),
@@ -255,10 +277,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: MediaQuery.of(context).size.width / 1.2,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: provider.getInstrumentList.length,
+                      itemCount: provider.isFilter ? provider.getFilteredList.length: provider.getInstrumentList.length,
                       itemBuilder: (context, index) {
                         Instrument instrument =
-                            provider.getInstrumentByIndex(index);
+                        provider.isFilter ? provider.getFilteredInstrumentByIndex(index) :  provider.getInstrumentByIndex(index);
                         return GestureDetector(
                             onTap: ()=>productOnTap(instrument),
                             child: Padding(
@@ -287,5 +309,12 @@ class _HomeScreenState extends State<HomeScreen> {
       context,
       MaterialPageRoute(builder: (context) =>  DetailsScreen(instrument: instrument)),
     );
+  }
+
+  void _selectCategory(String category){
+     print(category);
+     var provider = Provider.of<MainProvider>(context, listen: false);
+     provider.setIsFilter(true);
+provider.filterByCategory(category);
   }
 }
