@@ -15,7 +15,7 @@ class CategoryTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.1),
@@ -26,9 +26,16 @@ class CategoryTile extends StatelessWidget {
         ],
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children:  [
           icon,
-          Text(categoryName),
+          Text(categoryName,
+            style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.normal,
+                fontSize: 15.0),
+          ),
         ],
       ),
     );

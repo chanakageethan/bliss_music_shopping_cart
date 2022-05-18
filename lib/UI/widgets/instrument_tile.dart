@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../Provider/main_provider.dart';
 import '../utils/app_colors.dart';
 
 class InstrumentTile extends StatelessWidget {
   final String productCode;
   final String imageUrl;
+  final String itemId;
 
   const InstrumentTile(
-      {Key? key, required this.productCode, required this.imageUrl})
+      {Key? key, required this.productCode, required this.imageUrl,required this.itemId})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var mainProvider = Provider.of<MainProvider>(context, listen: true);
     return Container(
       height: MediaQuery.of(context).size.height / 5,
       width: MediaQuery.of(context).size.width / 3.5,
@@ -46,11 +50,16 @@ class InstrumentTile extends StatelessWidget {
                       fontSize: 13.0),
                 ),
                const  Spacer(),
+                mainProvider.getIsFavorite(itemId) ? const Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                  size: 24.0,
+                ):
                 const Icon(
                   Icons.favorite,
                   color: Colors.white,
                   size: 24.0,
-                ),
+                )
               ],
             ),
             SizedBox(

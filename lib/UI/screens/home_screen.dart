@@ -26,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Category(categoryName: "drums", color: Colors.pink),
   ];
 
+  TextEditingController searchInputController = TextEditingController(text: "");
+
   // final List<Widget> _categoryList = [
   //   const CategoryTile(
   //       categoryName: "Guitar",
@@ -85,8 +87,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+
         var provider = Provider.of<MainProvider>(context, listen: false);
         provider.setIsFilter(false);
+        FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
@@ -144,8 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const Text(
                 "Sudesh Kumara,",
                 style: TextStyle(
-                    color: AppColors.textColor,
-                    fontWeight: FontWeight.bold,
+                    color: AppColors.textColorLight,
+                    fontWeight: FontWeight.w700,
                     fontStyle: FontStyle.normal,
                     fontSize: 25.0),
               ),
@@ -166,19 +170,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           flex: 8, // 20%
                           child: Container(
                             padding: const EdgeInsets.only(left: 10),
-                            child: const TextField(
-                              // controller: searchInputController,
+                            child: TextField(
+                              controller: searchInputController,
                               autofocus: false,
                               keyboardAppearance: Brightness.light,
-                              // onChanged: (text) => _searchTyping(),
+                              onChanged: (text) => _searchTyping(),
                               textAlign: TextAlign.start,
-                              decoration: InputDecoration.collapsed(
+                              decoration: const InputDecoration.collapsed(
                                 hintText: 'Search Your Model',
                                 hintStyle: TextStyle(
                                     color: AppColors.textColorLight,
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w500,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 15.0),
+                                    fontSize: 13.0),
                               ),
                             ),
                           ),
@@ -195,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 shape: BoxShape.circle,
                               ),
                               child: GestureDetector(
-                                // onTap: () => _onTapSearch(),
+                                onTap: () => _onTapSearch(),
                                 child: const Icon(
                                   Icons.search,
                                   color: Colors.black,
@@ -210,14 +214,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               const Text(
                 "By Category",
                 style: TextStyle(
                     color: AppColors.textColorLight,
                     fontWeight: FontWeight.w500,
                     fontStyle: FontStyle.normal,
-                    fontSize: 25.0),
+                    fontSize: 20.0),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               SizedBox(
@@ -252,9 +256,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: AppColors.textColorLight,
                     fontWeight: FontWeight.w500,
                     fontStyle: FontStyle.normal,
-                    fontSize: 25.0),
+                    fontSize: 20.0),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               // Container(
               //   color: Colors.yellow,
               //   child: SizedBox(
@@ -297,6 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: InstrumentTile(
                                     productCode: instrument.model,
                                     imageUrl: instrument.image,
+                                    itemId: instrument.id,
                                   ),
                                 ));
                           },
@@ -316,9 +321,24 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _selectCategory(String category) {
-    print(category);
     var provider = Provider.of<MainProvider>(context, listen: false);
     provider.setIsFilter(true);
     provider.filterByCategory(category);
+  }
+
+  void _onTapSearch() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    var provider = Provider.of<MainProvider>(context, listen: false);
+    provider.setIsFilter(true);
+    provider.filterByModel(searchInputController.text);
+  }
+
+  void _searchTyping() {
+    var provider = Provider.of<MainProvider>(context, listen: false);
+
+    if (searchInputController.text.isEmpty) {
+      provider.setIsFilter(false);
+      FocusManager.instance.primaryFocus?.unfocus();
+    }
   }
 }
