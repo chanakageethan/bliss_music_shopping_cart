@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
+import '../../Provider/cart_provider.dart';
 import '../../models/category.dart';
 import '../../models/instrument.dart';
 import '../utils/commonFunctions.dart';
 import '../widgets/category_tile.dart';
 import '../widgets/instrument_tile.dart';
+import 'cart_screen.dart';
 import 'details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,43 +24,28 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<Category> _categoryList = [
-    Category(categoryName: "guitar", color: CommonFunctions.getColorByCategory("guitar")),
-    Category(categoryName: "piano", color: CommonFunctions.getColorByCategory("piano")),
-    Category(categoryName: "drums", color: CommonFunctions.getColorByCategory("drums")),
+    Category(categoryName: "guitar", color: CommonFunctions.getColorByCategory("guitar") ,icon:const Icon(
+      Icons.music_note_outlined,
+      color: Colors.white,
+      size: 25,
+    ) ),
+    Category(categoryName: "piano", color: CommonFunctions.getColorByCategory("piano"),icon:const Icon(
+      Icons.piano,
+      color: Colors.white,
+      size: 25,
+    )),
+    Category(categoryName: "drums", color: CommonFunctions.getColorByCategory("drums"),icon:const Icon(
+      Icons.music_note,
+      color: Colors.white,
+      size: 25,
+    )),
   ];
 
   TextEditingController searchInputController = TextEditingController(text: "");
 
-  // final List<Widget> _categoryList = [
-  //   const CategoryTile(
-  //       categoryName: "Guitar",
-  //       color: Colors.green,
-  //       icon: Icon(
-  //         Icons.music_note,
-  //         color: Colors.black,
-  //         size: 25,
-  //       )),
-  //   const SizedBox(width: 5),
-  //   const CategoryTile(
-  //       categoryName: "Piano",
-  //       color: Colors.yellow,
-  //       icon: Icon(
-  //         Icons.music_note,
-  //         color: Colors.black,
-  //         size: 25,
-  //       )),
-  //   const SizedBox(width: 5),
-  //   const CategoryTile(
-  //       categoryName: "Drums",
-  //       color: Colors.purple,
-  //       icon: Icon(
-  //         Icons.music_note,
-  //         color: Colors.black,
-  //         size: 25,
-  //       )),
-  // ];
 
-  List<Instrument> instrumentTest = [];
+
+  // List<Instrument> instrumentTest = [];
 
   fetchData() async {
     var provider = Provider.of<MainProvider>(context, listen: false);
@@ -100,7 +87,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget body() => SingleChildScrollView(
+  Widget body() {
+
+    var provider = Provider.of<CartProvider>(context, listen: true);
+
+    return  SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
               top: MediaQuery.of(context).size.height * 0.05,
@@ -134,6 +125,41 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(75.0)),
                     alignment: Alignment.center,
                   ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.03),
+                  GestureDetector(
+                    onTap: ()=>showCartScreen(context),
+                    child: Stack(
+                      children:  [
+                        const  Icon(
+                          Icons.shopping_cart,
+                          color: Colors.white,
+                          size: 40.0,
+                        ),
+                        provider.getCartItemList.isNotEmpty?
+                        Container(
+                          height: 15,
+                          width: 15,
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
+                          decoration: const BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle
+                          ),
+                          child:  Center(
+                            child: Text(
+                              provider.getCartItemList.length.toString(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 10.0),
+                            ),
+                          ),
+                        ):Container()
+                      ],
+                    ),
+                  ),
+
+
                 ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -241,11 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: CategoryTile(
                               categoryName: _categoryList[index].categoryName,
                               color: _categoryList[index].color,
-                              icon: const Icon(
-                                Icons.music_note,
-                                color: Colors.black,
-                                size: 25,
-                              )),
+                              icon:_categoryList[index].icon),
                         ));
                   },
                 ),
@@ -312,7 +334,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      );
+      );}
 
   void productOnTap(Instrument instrument) {
     Navigator.push(
@@ -342,5 +364,12 @@ class _HomeScreenState extends State<HomeScreen> {
       provider.setIsFilter(false);
       FocusManager.instance.primaryFocus?.unfocus();
     }
+  }
+
+  showCartScreen(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  const CartScreen()),
+    );
   }
 }
