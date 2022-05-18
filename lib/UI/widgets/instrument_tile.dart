@@ -3,14 +3,16 @@ import 'package:provider/provider.dart';
 
 import '../../Provider/main_provider.dart';
 import '../utils/app_colors.dart';
+import '../utils/commonFunctions.dart';
 
 class InstrumentTile extends StatelessWidget {
   final String productCode;
   final String imageUrl;
   final String itemId;
+  final String category;
 
   const InstrumentTile(
-      {Key? key, required this.productCode, required this.imageUrl,required this.itemId})
+      {Key? key, required this.productCode, required this.imageUrl,required this.itemId,required this.category})
       : super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class InstrumentTile extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 5,
       width: MediaQuery.of(context).size.width / 3.5,
       decoration: BoxDecoration(
-        // color: Colors.lightGreen,
+        color: CommonFunctions.getColorByCategory(category),
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/category.dart';
 import '../../models/instrument.dart';
+import '../utils/commonFunctions.dart';
 import '../widgets/category_tile.dart';
 import '../widgets/instrument_tile.dart';
 import 'details_screen.dart';
@@ -21,9 +22,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<Category> _categoryList = [
-    Category(categoryName: "guitar", color: Colors.green),
-    Category(categoryName: "piano", color: Colors.yellow),
-    Category(categoryName: "drums", color: Colors.pink),
+    Category(categoryName: "guitar", color: CommonFunctions.getColorByCategory("guitar")),
+    Category(categoryName: "piano", color: CommonFunctions.getColorByCategory("piano")),
+    Category(categoryName: "drums", color: CommonFunctions.getColorByCategory("drums")),
   ];
 
   TextEditingController searchInputController = TextEditingController(text: "");
@@ -302,6 +303,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     productCode: instrument.model,
                                     imageUrl: instrument.image,
                                     itemId: instrument.id,
+                                    category: instrument.category,
                                   ),
                                 ));
                           },

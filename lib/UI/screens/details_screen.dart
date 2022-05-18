@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../Provider/cart_provider.dart';
 import '../../models/instrument.dart';
+import '../utils/commonFunctions.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/primary_button.dart';
 import 'cart_screen.dart';
@@ -19,7 +20,7 @@ class DetailsScreen extends StatelessWidget {
       body: SafeArea(child: body(context)),
       appBar:  CustomAppBar(
         isBackButtonNeeded: true,
-        color: AppColors.backgroundColor,
+        color: CommonFunctions.getColorByCategory(instrument.category),
         itemId: instrument.id,
       ),
     );
@@ -30,7 +31,7 @@ class DetailsScreen extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              color: AppColors.backgroundColor,
+              color: CommonFunctions.getColorByCategory(instrument.category),
               width: double.infinity,
               child: Column(
                 children: [

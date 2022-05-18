@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/instrument.dart';
 import '../utils/app_colors.dart';
+import '../utils/commonFunctions.dart';
 import '../widgets/cart_item_tile.dart';
 import '../widgets/primary_button.dart';
 import 'home_screen.dart';
@@ -70,7 +71,7 @@ class CartScreen extends StatelessWidget {
                                   bottom:
                                       MediaQuery.of(context).size.width * 0.02),
                               child: CartItemTile(
-                                color: Colors.deepPurpleAccent,
+                                color: CommonFunctions.getColorByCategory(cartItem.category),
                                 imageUrl: cartItem.image,
                                 model: cartItem.model,
                                 price: cartItem.price,
