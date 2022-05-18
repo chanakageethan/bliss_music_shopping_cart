@@ -1,9 +1,12 @@
 import 'package:bliss_music_shopping_cart/UI/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../Provider/cart_provider.dart';
 import '../../models/instrument.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/primary_button.dart';
+import 'cart_screen.dart';
 
 class DetailsScreen extends StatelessWidget {
   final Instrument instrument;
@@ -186,7 +189,7 @@ class DetailsScreen extends StatelessWidget {
                      right: MediaQuery.of(context).size.width / 10,
                      bottom:   MediaQuery.of(context).size.height *0.02,
                    ),
-                   child: PrimaryButton(text: "Add to cart", callback: adToCart),
+                   child: PrimaryButton(text: "Add to cart", callback:()=> adToCart(context)),
                  ),
                   ],
                 ),
@@ -196,7 +199,15 @@ class DetailsScreen extends StatelessWidget {
         ),
       );
 
-  adToCart() {
-    print("add to cart");
+  adToCart(BuildContext context) {
+    var provider = Provider.of<CartProvider>(context, listen: false);
+    provider.addToCart(instrument);
+
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CartScreen()),
+    );
+
   }
 }
