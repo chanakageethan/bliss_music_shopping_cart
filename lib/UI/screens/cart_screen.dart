@@ -1,5 +1,3 @@
-
-
 import 'package:bliss_music_shopping_cart/Provider/cart_provider.dart';
 import 'package:bliss_music_shopping_cart/UI/widgets/custom_app_bar_common.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,12 +24,14 @@ class CartScreen extends StatelessWidget {
         color: AppColors.backgroundColor,
       ),
       body: SafeArea(
-        child: (isCartActive) ? cartView(context,provider.totalPrice) : emptyCartView(context),
+        child: (provider.getCartItemList.isNotEmpty)
+            ? cartView(context, provider.totalPrice)
+            : emptyCartView(context),
       ),
     );
   }
 
-  Widget cartView(BuildContext context,double totalPrice) => SizedBox(
+  Widget cartView(BuildContext context, double totalPrice) => SizedBox(
         width: double.infinity,
         child: Column(
           children: [
@@ -66,12 +66,15 @@ class CartScreen extends StatelessWidget {
                                   right:
                                       MediaQuery.of(context).size.width * 0.02,
                                   left:
+                                      MediaQuery.of(context).size.width * 0.02,
+                                  bottom:
                                       MediaQuery.of(context).size.width * 0.02),
                               child: CartItemTile(
-                                color: Colors.yellow,
+                                color: Colors.deepPurpleAccent,
                                 imageUrl: cartItem.image,
                                 model: cartItem.model,
-                                price: 100.0,
+                                price: cartItem.price,
+                                id: cartItem.id,
                               ),
                             );
                           },
@@ -91,8 +94,8 @@ class CartScreen extends StatelessWidget {
                   left: MediaQuery.of(context).size.width * 0.09,
                   right: MediaQuery.of(context).size.width * 0.09),
               child: Row(
-                children:  [
-                 const  Text(
+                children: [
+                  const Text(
                     "Total",
                     style: TextStyle(
                         color: AppColors.textColorLight,
@@ -158,10 +161,6 @@ class CartScreen extends StatelessWidget {
           ],
         ),
       );
-
-
-
-
 
   showHomeScreen(BuildContext context) {
     Navigator.push(

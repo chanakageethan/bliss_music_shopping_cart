@@ -18,4 +18,14 @@ class CartProvider extends ChangeNotifier{
     totalPrice = totalPrice + instrument.price;
     notifyListeners();
   }
+
+   removeItemFromCart(String  id, double price){
+     _cartItemList.removeWhere((item) => item.id == id);
+     totalPrice = totalPrice - price;
+     notifyListeners();
+   }
+
+
+
+
 }
