@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../Provider/cart_provider.dart';
 import '../screens/cart_screen.dart';
 
 
@@ -15,6 +17,8 @@ class CustomAppBarCommon extends StatelessWidget   implements  PreferredSizeWidg
   Size get preferredSize => const Size.fromHeight(43);
   @override
   Widget build(BuildContext context) {
+
+
     return AppBar(
         leadingWidth: MediaQuery.of(context).size.width / 4,
         backgroundColor:color,

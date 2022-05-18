@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../Provider/cart_provider.dart';
 import '../screens/cart_screen.dart';
 
 
@@ -15,6 +17,7 @@ class CustomAppBar extends StatelessWidget   implements  PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(43);
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<CartProvider>(context, listen: true);
     return AppBar(
         leadingWidth: MediaQuery.of(context).size.width / 4,
         backgroundColor:color,
@@ -45,6 +48,8 @@ class CustomAppBar extends StatelessWidget   implements  PreferredSizeWidget {
                     color: Colors.white,
                     size: 30.0,
                   ),
+
+                  provider.getCartItemList.isNotEmpty?
                   Container(
                     height: 15,
                     width: 15,
@@ -53,17 +58,17 @@ class CustomAppBar extends StatelessWidget   implements  PreferredSizeWidget {
                         color: Colors.red,
                         shape: BoxShape.circle
                     ),
-                    child: const Center(
+                    child:  Center(
                       child: Text(
-                        "4",
-                        style: TextStyle(
+                        provider.getCartItemList.length.toString(),
+                        style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.normal,
                             fontSize: 10.0),
                       ),
                     ),
-                  ),
+                  ):Container()
                 ],
               ),
             ),
