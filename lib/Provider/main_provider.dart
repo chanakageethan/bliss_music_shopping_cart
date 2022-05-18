@@ -52,7 +52,7 @@ class MainProvider extends ChangeNotifier {
 
   filterByModel(String model){
     _filteredList= [];
-    _filteredList = _instrumentList.where((i) => i.model == model).toList();
+    _filteredList = _instrumentList.where((i) => i.model.trim() == model.trim() ).toList();
     notifyListeners();
   }
 
