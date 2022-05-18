@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+
 class CategoryTile extends StatelessWidget {
   final String categoryName;
-  final Widget  icon;
-  final Color  color;
+  final Widget icon;
+  final Color color;
 
-
-  const CategoryTile({Key? key,required this.categoryName,required this.icon,required this.color}) : super(key: key);
+  const CategoryTile(
+      {Key? key,
+      required this.categoryName,
+      required this.icon,
+      required this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +32,10 @@ class CategoryTile extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children:  [
+        children: [
           icon,
-          Text(categoryName,
+          Text(
+            categoryName,
             style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w700,

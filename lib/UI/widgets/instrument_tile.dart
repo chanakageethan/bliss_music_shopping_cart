@@ -12,7 +12,11 @@ class InstrumentTile extends StatelessWidget {
   final String category;
 
   const InstrumentTile(
-      {Key? key, required this.productCode, required this.imageUrl,required this.itemId,required this.category})
+      {Key? key,
+      required this.productCode,
+      required this.imageUrl,
+      required this.itemId,
+      required this.category})
       : super(key: key);
 
   @override
@@ -35,10 +39,10 @@ class InstrumentTile extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02,
-      left: MediaQuery.of(context).size.width * 0.02,
-            right: MediaQuery.of(context).size.width * 0.02
-        ),
+        padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.02,
+            left: MediaQuery.of(context).size.width * 0.02,
+            right: MediaQuery.of(context).size.width * 0.02),
         child: Column(
           children: [
             Row(
@@ -51,25 +55,26 @@ class InstrumentTile extends StatelessWidget {
                       fontStyle: FontStyle.normal,
                       fontSize: 13.0),
                 ),
-               const  Spacer(),
-                mainProvider.getIsFavorite(itemId) ? const Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                  size: 24.0,
-                ):
-                const Icon(
-                  Icons.favorite,
-                  color: Colors.white,
-                  size: 24.0,
-                )
+                const Spacer(),
+                mainProvider.getIsFavorite(itemId)
+                    ? const Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                        size: 24.0,
+                      )
+                    : const Icon(
+                        Icons.favorite,
+                        color: Colors.white,
+                        size: 24.0,
+                      )
               ],
             ),
             SizedBox(
-              height:  MediaQuery.of(context).size.height * 0.02,
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
             SizedBox(
-              height:  MediaQuery.of(context).size.height / 10,
-              width:  MediaQuery.of(context).size.width / 7,
+              height: MediaQuery.of(context).size.height / 10,
+              width: MediaQuery.of(context).size.width / 7,
               child: Image.network(imageUrl),
             ),
           ],

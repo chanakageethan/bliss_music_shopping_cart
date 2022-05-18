@@ -38,11 +38,11 @@ class CustomAppBar extends StatelessWidget   implements  PreferredSizeWidget {
              SizedBox(width: MediaQuery.of(context).size.width *0.02),
             GestureDetector(
               onTap: ()=>_favoriteOnTap(context),
-              child:  mainProvider.getIsFavorite(itemId)?  Icon(
+              child:  mainProvider.getIsFavorite(itemId)?  const Icon(
                 Icons.favorite,
                 color: Colors.red,
                 size: 30.0,
-              ):Icon(
+              ):const Icon(
                 Icons.favorite,
                 color: Colors.white,
                 size: 30.0,

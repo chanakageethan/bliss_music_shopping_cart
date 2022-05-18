@@ -36,21 +36,6 @@ class CartScreen extends StatelessWidget {
         width: double.infinity,
         child: Column(
           children: [
-            // const CartItemTile(
-            //   color: Colors.green,
-            //   imageUrl:
-            //       "https://thumbs.static-thomann.de/thumb/orig/pics/bdb/245039/2422612_800.webp",
-            //   model: "test",
-            //   price: 100.0,
-            // ),
-            // const CartItemTile(
-            //   color: Colors.yellow,
-            //   imageUrl:
-            //       "https://thumbs.static-thomann.de/thumb/orig/pics/bdb/245039/2422612_800.webp",
-            //   model: "test",
-            //   price: 100.0,
-            // ),
-
             SingleChildScrollView(
               child: Consumer<CartProvider>(
                   builder: (_, provider, __) => SizedBox(
@@ -71,7 +56,8 @@ class CartScreen extends StatelessWidget {
                                   bottom:
                                       MediaQuery.of(context).size.width * 0.02),
                               child: CartItemTile(
-                                color: CommonFunctions.getColorByCategory(cartItem.category),
+                                color: CommonFunctions.getColorByCategory(
+                                    cartItem.category),
                                 imageUrl: cartItem.image,
                                 model: cartItem.model,
                                 price: cartItem.price,
@@ -82,7 +68,6 @@ class CartScreen extends StatelessWidget {
                         ),
                       )),
             ),
-
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Padding(
               padding: EdgeInsets.only(

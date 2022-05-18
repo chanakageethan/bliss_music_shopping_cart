@@ -18,7 +18,7 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(child: body(context)),
-      appBar:  CustomAppBar(
+      appBar: CustomAppBar(
         isBackButtonNeeded: true,
         color: CommonFunctions.getColorByCategory(instrument.category),
         itemId: instrument.id,
@@ -184,15 +184,16 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-
-                 Padding(
-                   padding:  EdgeInsets.only(
-                     left: MediaQuery.of(context).size.width / 10,
-                     right: MediaQuery.of(context).size.width / 10,
-                     bottom:   MediaQuery.of(context).size.height *0.02,
-                   ),
-                   child: PrimaryButton(text: "Add to cart", callback:()=> adToCart(context)),
-                 ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 10,
+                        right: MediaQuery.of(context).size.width / 10,
+                        bottom: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                      child: PrimaryButton(
+                          text: "Add to cart",
+                          callback: () => adToCart(context)),
+                    ),
                   ],
                 ),
               ),
@@ -205,11 +206,9 @@ class DetailsScreen extends StatelessWidget {
     var provider = Provider.of<CartProvider>(context, listen: false);
     provider.addToCart(instrument);
 
-
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const CartScreen()),
     );
-
   }
 }

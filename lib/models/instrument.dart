@@ -10,18 +10,18 @@ class Instrument {
   String image;
   late bool isFavorite;
 
-  Instrument(
-      {required this.id,
-      required this.name,
-      required this.category,
-      required this.brand,
-      required this.model,
-      required this.price,
-      required this.colour,
-      required this.weight,
-      required this.image,
-      this.isFavorite = false,
-      });
+  Instrument({
+    required this.id,
+    required this.name,
+    required this.category,
+    required this.brand,
+    required this.model,
+    required this.price,
+    required this.colour,
+    required this.weight,
+    required this.image,
+    this.isFavorite = false,
+  });
 
   factory Instrument.fromJson(Map<String, dynamic> json) {
     return Instrument(
@@ -36,7 +36,4 @@ class Instrument {
       image: json["image"],
     );
   }
-
-
-
 }

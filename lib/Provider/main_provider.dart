@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 class MainProvider extends ChangeNotifier {
   List<Instrument> _instrumentList = [];
   List<Instrument> _filteredList = [];
-  late  bool _isFilter = false;
+  late bool _isFilter = false;
 
-  List<Instrument> get  getInstrumentList => _instrumentList;
-  List<Instrument> get  getFilteredList => _filteredList;
-  bool get isFilter =>  _isFilter;
+  List<Instrument> get getInstrumentList => _instrumentList;
+
+  List<Instrument> get getFilteredList => _filteredList;
+
+  bool get isFilter => _isFilter;
 
   Instrument getInstrumentByIndex(int index) => _instrumentList[index];
+
   Instrument getFilteredInstrumentByIndex(int index) => _filteredList[index];
 
   setInstrumentList(List<Instrument> list) {
@@ -23,15 +26,15 @@ class MainProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  filterByCategory(String category){
-    _filteredList = _instrumentList.where((i) => i.category == category).toList();
+  filterByCategory(String category) {
+    _filteredList =
+        _instrumentList.where((i) => i.category == category).toList();
     notifyListeners();
   }
 
-  makeFavoriteItem(String  id){
+  makeFavoriteItem(String id) {
     for (var element in _instrumentList) {
-      if(  element.id == id){
+      if (element.id == id) {
         element.isFavorite = !element.isFavorite;
         notifyListeners();
       }
@@ -39,27 +42,20 @@ class MainProvider extends ChangeNotifier {
     // notifyListeners();
   }
 
-  bool getIsFavorite(String  id){
+  bool getIsFavorite(String id) {
     bool isFavorite = false;
     for (var element in _instrumentList) {
-      if(  element.id == id){
-        isFavorite =   element.isFavorite;
+      if (element.id == id) {
+        isFavorite = element.isFavorite;
       }
     }
     return isFavorite;
   }
 
-
-  filterByModel(String model){
-    _filteredList= [];
-    _filteredList = _instrumentList.where((i) => i.model.trim() == model.trim() ).toList();
+  filterByModel(String model) {
+    _filteredList = [];
+    _filteredList =
+        _instrumentList.where((i) => i.model.trim() == model.trim()).toList();
     notifyListeners();
   }
-
-
-
-
-
-
 }
-
