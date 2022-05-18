@@ -76,7 +76,7 @@ class DetailsScreen extends StatelessWidget {
                             color: AppColors.textColorLight,
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.normal,
-                            fontSize: 30.0),
+                            fontSize: 20.0),
                       ),
                     ),
                     Padding(
@@ -95,7 +95,7 @@ class DetailsScreen extends StatelessWidget {
                                     color: AppColors.textColorLight,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 20.0),
+                                    fontSize: 15.0),
                               ),
                               SizedBox(
                                   height: MediaQuery.of(context).size.height *
@@ -106,7 +106,7 @@ class DetailsScreen extends StatelessWidget {
                                     color: AppColors.textColorLight,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 20.0),
+                                    fontSize: 15.0),
                               ),
                               SizedBox(
                                   height: MediaQuery.of(context).size.height *
@@ -117,7 +117,7 @@ class DetailsScreen extends StatelessWidget {
                                     color: AppColors.textColorLight,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 20.0),
+                                    fontSize: 15.0),
                               ),
                               SizedBox(
                                   height: MediaQuery.of(context).size.height *
@@ -128,7 +128,7 @@ class DetailsScreen extends StatelessWidget {
                                     color: AppColors.textColorLight,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 20.0),
+                                    fontSize: 15.0),
                               ),
                             ],
                           ),
@@ -143,7 +143,7 @@ class DetailsScreen extends StatelessWidget {
                                     color: AppColors.textColorLight,
                                     fontWeight: FontWeight.w100,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 20.0),
+                                    fontSize: 15.0),
                               ),
                               SizedBox(
                                   height: MediaQuery.of(context).size.height *
@@ -154,7 +154,7 @@ class DetailsScreen extends StatelessWidget {
                                     color: AppColors.textColorLight,
                                     fontWeight: FontWeight.w100,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 20.0),
+                                    fontSize: 15.0),
                               ),
                               SizedBox(
                                   height: MediaQuery.of(context).size.height *
@@ -165,7 +165,7 @@ class DetailsScreen extends StatelessWidget {
                                     color: AppColors.textColorLight,
                                     fontWeight: FontWeight.w100,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 20.0),
+                                    fontSize: 15.0),
                               ),
                               SizedBox(
                                   height: MediaQuery.of(context).size.height *
@@ -176,7 +176,7 @@ class DetailsScreen extends StatelessWidget {
                                     color: AppColors.textColorLight,
                                     fontWeight: FontWeight.w100,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 20.0),
+                                    fontSize: 15.0),
                               ),
                             ],
                           )
